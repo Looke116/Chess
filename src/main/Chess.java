@@ -1,6 +1,5 @@
 package main;
 
-import piece.Pawn;
 import processing.core.PApplet;
 
 public class Chess extends PApplet {
@@ -10,6 +9,7 @@ public class Chess extends PApplet {
 	static int LENGTH = 50;
 	int ROWS = 8;
 	int COLUMNS = 8;
+	Piece[] pawn = new Pawn[16];
 
 	public static void main(String[] args) {
 		PApplet.main("main.Chess");
@@ -20,22 +20,39 @@ public class Chess extends PApplet {
 	}
 
 	public void setup() {
-		for (int i = 0; i < ROWS; i++) {
-			for (int j = 0; j < COLUMNS; j++) {
-				noStroke();
-				if ((i + j + 1) % 2 == 0) {
-					fill(250);
-					rect(LENGTH * i, LENGTH * j, LENGTH, LENGTH);
-				} else {
-					fill(0);
-					rect(LENGTH * i, LENGTH * j, LENGTH, LENGTH);
-				}
+		for (int i = 0; i < 16; i++) {
+			if (i < 8) {
+				pawn[i] = new Pawn(i, 1, LENGTH, false, this);
+			} else {
+				pawn[i] = new Pawn(i - 8, 6, LENGTH, true, this);
 			}
 		}
 	}
 
 	public void draw() {
-		Pawn p = new Pawn(1, 1, LENGTH, this);
-		p.show();
+		for (int i = 0; i < ROWS; i++) {
+			for (int j = 0; j < COLUMNS; j++) {
+				noStroke();
+				if ((i + j + 1) % 2 == 0) {
+					fill(200);
+					rect(LENGTH * i, LENGTH * j, LENGTH, LENGTH);
+				} else {
+					fill(100);
+					rect(LENGTH * i, LENGTH * j, LENGTH, LENGTH);
+				}
+			}
+		}
+
+		for (int i = 0; i < 16; i++) {
+			((main.Pawn) pawn[i]).draw();
+		}
+	}
+
+	public void mousePressed() {
+		for (int i = 0; i < pawn.length; i++) {
+			if (pawn[i].checkMouseLocation(mouseX, mouseY)) {
+				pawn[i].moving = true;
+			}
+		}
 	}
 }
