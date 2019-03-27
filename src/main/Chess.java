@@ -80,91 +80,69 @@ public class Chess extends PApplet {
 		// drawing the pieces
 		//// pawn
 		for (int i = 0; i < pawn.length; i++) {
-			((Pawn) pawn[i]).draw();
+			pawn[i].draw();
 		}
 
 		//// rook
 		for (int i = 0; i < rook.length; i++) {
-			((Rook) rook[i]).draw();
+			rook[i].draw();
 		}
 
 		//// knight
 		for (int i = 0; i < knight.length; i++) {
-			((Knight) knight[i]).draw();
+			knight[i].draw();
 		}
 
 		//// bishop
 		for (int i = 0; i < bishop.length; i++) {
-			((Bishop) bishop[i]).draw();
+			bishop[i].draw();
 		}
 
 		//// queen
 		for (int i = 0; i < queen.length; i++) {
-			((Queen) queen[i]).draw();
+			queen[i].draw();
 		}
 
 		//// king
 		for (int i = 0; i < king.length; i++) {
-			((King) king[i]).draw();
+			king[i].draw();
 		}
 	}
 
 	public void mousePressed() {
 		// putting the selected piece back down
-		//// pawn
-		for (int i = 0; i < pawn.length; i++) {
-			if (pawn[i].moving) {
-				pawn[i].moving = false;
-				// TODO figure out a way to change i and j
+		putDown(pawn);
+		putDown(rook);
+		putDown(knight);
+		putDown(bishop);
+		putDown(queen);
+		putDown(king);
+
+		// checking for the selected piece
+		setMoving(pawn);
+		setMoving(rook);
+		setMoving(knight);
+		setMoving(bishop);
+		setMoving(queen);
+		setMoving(king);
+
+	}
+
+	void setMoving(Piece[] piece) {
+		for (int i = 0; i < piece.length; i++) {
+			if (piece[i].checkMouseLocation(mouseX, mouseY)) {
+				piece[i].moving = true;
 			}
 		}
+	}
 
-		//// rook
-		//// knight
-		//// bishop
-		//// queen
-		//// king
-
-		// checking for selected piece
-		//// pawn
-		for (int i = 0; i < pawn.length; i++) {
-			if (pawn[i].checkMouseLocation(mouseX, mouseY)) {
-				pawn[i].moving = true;
-			}
-		}
-
-		//// rook
-		for (int i = 0; i < rook.length; i++) {
-			if (rook[i].checkMouseLocation(mouseX, mouseY)) {
-				rook[i].moving = true;
-			}
-		}
-
-		//// knight
-		for (int i = 0; i < knight.length; i++) {
-			if (knight[i].checkMouseLocation(mouseX, mouseY)) {
-				knight[i].moving = true;
-			}
-		}
-
-		//// bishop
-		for (int i = 0; i < bishop.length; i++) {
-			if (bishop[i].checkMouseLocation(mouseX, mouseY)) {
-				bishop[i].moving = true;
-			}
-		}
-
-		//// queen
-		for (int i = 0; i < queen.length; i++) {
-			if (queen[i].checkMouseLocation(mouseX, mouseY)) {
-				queen[i].moving = true;
-			}
-		}
-
-		//// king
-		for (int i = 0; i < king.length; i++) {
-			if (king[i].checkMouseLocation(mouseX, mouseY)) {
-				king[i].moving = true;
+	void putDown(Piece[] piece) {
+		//TODO actually change the position of the piece
+		if (mouseButton == RIGHT) {
+			for (int i = 0; i < piece.length; i++) {
+				if (piece[i].moving) {
+					piece[i].moving = false;
+				}
 			}
 		}
 	}
