@@ -7,8 +7,9 @@ public class Chess extends PApplet {
 	final int CANVAS_WIDTH = 400;
 	final int CANVAS_HEIGHT = 400;
 	final int LENGTH = 50;
-	int ROWS = 8;
-	int COLUMNS = 8;
+	final int ROWS = 8;
+	final int COLUMNS = 8;
+	boolean hasPiece = false;
 	Piece[] pawn = new Pawn[16];
 	Piece[] rook = new Rook[4];
 	Piece[] knight = new Knight[4];
@@ -110,22 +111,25 @@ public class Chess extends PApplet {
 	}
 
 	public void mousePressed() {
-		// putting the selected piece back down
-		putDown(pawn);
-		putDown(rook);
-		putDown(knight);
-		putDown(bishop);
-		putDown(queen);
-		putDown(king);
-
-		// checking for the selected piece
-		setMoving(pawn);
-		setMoving(rook);
-		setMoving(knight);
-		setMoving(bishop);
-		setMoving(queen);
-		setMoving(king);
-
+		if (hasPiece) {
+			// putting the selected piece back down
+			putDown(pawn);
+			putDown(rook);
+			putDown(knight);
+			putDown(bishop);
+			putDown(queen);
+			putDown(king);
+			hasPiece = false;
+		} else {
+			// checking for the selected piece
+			setMoving(pawn);
+			setMoving(rook);
+			setMoving(knight);
+			setMoving(bishop);
+			setMoving(queen);
+			setMoving(king);
+			hasPiece = true;
+		}
 	}
 
 	void setMoving(Piece[] piece) {
@@ -137,11 +141,18 @@ public class Chess extends PApplet {
 	}
 
 	void putDown(Piece[] piece) {
-		//TODO actually change the position of the piece
+		// TODO actually change the position of the piece
 		if (mouseButton == RIGHT) {
 			for (int i = 0; i < piece.length; i++) {
 				if (piece[i].moving) {
 					piece[i].moving = false;
+				}
+			}
+		} else if (mouseButton == LEFT) {
+			for (int i = 0; i < piece.length; i++) {
+				if (piece[i].moving) {
+					piece[i].moving = false;
+					piece[i].setIndex(mouseX / LENGTH, mouseY / LENGTH);
 				}
 			}
 		}

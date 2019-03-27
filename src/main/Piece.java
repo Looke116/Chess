@@ -11,6 +11,7 @@ public class Piece {
 	int length;
 	boolean isWhite;
 	boolean moving;
+	boolean taken;
 	PApplet parent;
 	PImage black;
 	PImage white;
@@ -23,12 +24,15 @@ public class Piece {
 		y = j * length;
 		this.isWhite = isWhite;
 		moving = false;
+		taken = false;
 		parent = p;
 	}
 
 	void setIndex(int i, int j) {
 		this.i = i;
 		this.j = j;
+		x = i * length;
+		y = j * length;
 	}
 
 	boolean checkMouseLocation(int x, int y) {
