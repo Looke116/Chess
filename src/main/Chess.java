@@ -16,6 +16,12 @@ public class Chess extends PApplet {
 	Piece[] bishop = new Bishop[4];
 	Piece[] queen = new Queen[2];
 	Piece[] king = new King[2];
+	Pawn typePawn = new Pawn();
+	Rook typeRook = new Rook();
+	Knight typeKnight = new Knight();
+	Bishop typeBishop = new Bishop();
+	Queen typeQueen = new Queen();
+	King typeKing = new King();
 
 	public static void main(String[] args) {
 		PApplet.main("main.Chess");
@@ -113,12 +119,12 @@ public class Chess extends PApplet {
 	public void mousePressed() {
 		if (hasPiece) {
 			// putting the selected piece back down
-			putDown(pawn);
-			putDown(rook);
-			putDown(knight);
-			putDown(bishop);
-			putDown(queen);
-			putDown(king);
+			putDown(pawn, typePawn);
+			putDown(rook, typeRook);
+			putDown(knight, typeKnight);
+			putDown(bishop, typeBishop);
+			putDown(queen, typeQueen);
+			putDown(king, typeKing);
 			hasPiece = false;
 		} else {
 			// checking for the selected piece
@@ -140,8 +146,8 @@ public class Chess extends PApplet {
 		}
 	}
 
-	void putDown(Piece[] piece) {
-		// TODO actually change the position of the piece
+	void putDown(Piece[] piece, Piece type) {
+
 		if (mouseButton == RIGHT) {
 			for (int i = 0; i < piece.length; i++) {
 				if (piece[i].moving) {
@@ -152,9 +158,21 @@ public class Chess extends PApplet {
 			for (int i = 0; i < piece.length; i++) {
 				if (piece[i].moving) {
 					piece[i].moving = false;
-					piece[i].setIndex(mouseX / LENGTH, mouseY / LENGTH);
+					if (checkMove(mouseX / LENGTH, mouseY / LENGTH, type)) {
+						piece[i].setIndex(mouseX / LENGTH, mouseY / LENGTH);
+					}
 				}
 			}
 		}
+	}
+
+	boolean checkMove(int i, int j, Piece piece) {
+		if (piece == typePawn) {
+			return ((Pawn) piece).checkValidMove(i, j);
+		}else if(piece == typeRook) {
+			return ((Rook) piece).checkValidMove(i, j);
+		}
+		return false;
+
 	}
 }

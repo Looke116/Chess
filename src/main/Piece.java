@@ -28,6 +28,10 @@ public class Piece {
 		parent = p;
 	}
 
+	public Piece() {
+		// this is here just so I can make an empty object that is needed for the typePiece variables
+	}
+
 	void setIndex(int i, int j) {
 		this.i = i;
 		this.j = j;
@@ -58,10 +62,21 @@ public class Piece {
 
 class Pawn extends Piece {
 
+	boolean canMoveTwo = true;
+
 	public Pawn(int i, int j, int length, boolean isWhite, PApplet p) {
 		super(i, j, length, isWhite, p);
 		black = parent.loadImage("Image\\Black\\Pawn.png");
 		white = parent.loadImage("Image\\White\\Pawn.png");
+	}
+
+	public Pawn() {
+		// this is here just so I can make an empty object that is needed for the typePiece variables
+	}
+
+	boolean checkValidMove(int i, int j) {
+		System.out.println(super.isWhite);
+		return false;
 	}
 }
 
@@ -72,6 +87,15 @@ class Rook extends Piece {
 		black = parent.loadImage("Image\\Black\\Rook.png");
 		white = parent.loadImage("Image\\White\\Rook.png");
 	}
+
+	public Rook() {
+		// this is here just so I can make an empty object that is needed for the typePiece variables
+	}
+
+	boolean checkValidMove(int i, int j) {
+		System.out.println(super.isWhite);
+		return false;
+	}
 }
 
 class Knight extends Piece {
@@ -80,6 +104,10 @@ class Knight extends Piece {
 		super(i, j, length, isWhite, p);
 		black = parent.loadImage("Image\\Black\\Knight.png");
 		white = parent.loadImage("Image\\White\\Knight.png");
+	}
+
+	public Knight() {
+		// this is here just so I can make an empty object that is needed for the typePiece variables
 	}
 }
 
@@ -90,6 +118,10 @@ class Bishop extends Piece {
 		black = parent.loadImage("Image\\Black\\Bishop.png");
 		white = parent.loadImage("Image\\White\\Bishop.png");
 	}
+
+	public Bishop() {
+		// this is here just so I can make an empty object that is needed for the typePiece variables
+	}
 }
 
 class Queen extends Piece {
@@ -99,6 +131,10 @@ class Queen extends Piece {
 		black = parent.loadImage("Image\\Black\\Queen.png");
 		white = parent.loadImage("Image\\White\\Queen.png");
 	}
+
+	public Queen() {
+		// this is here just so I can make an empty object that is needed for the typePiece variables
+	}
 }
 
 class King extends Piece {
@@ -107,5 +143,9 @@ class King extends Piece {
 		super(i, j, length, isWhite, p);
 		black = parent.loadImage("Image\\Black\\King.png");
 		white = parent.loadImage("Image\\White\\King.png");
+	}
+
+	public King() {
+		// this is here just so I can make an empty object that is needed for the typePiece variables
 	}
 }
