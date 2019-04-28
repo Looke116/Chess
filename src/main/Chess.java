@@ -4,8 +4,6 @@ import processing.core.PApplet;
 
 public class Chess extends PApplet {
 
-	final int CANVAS_WIDTH = 400;
-	final int CANVAS_HEIGHT = 400;
 	final int LENGTH = 50;
 	final int ROWS = 8;
 	final int COLUMNS = 8;
@@ -22,6 +20,7 @@ public class Chess extends PApplet {
 	Bishop typeBishop = new Bishop();
 	Queen typeQueen = new Queen();
 	King typeKing = new King();
+	Cell[] cells = new Cell[8 * 8];
 
 	public static void main(String[] args) {
 		PApplet.main("main.Chess");
@@ -119,12 +118,12 @@ public class Chess extends PApplet {
 	public void mousePressed() {
 		if (hasPiece) {
 			// putting the selected piece back down
-			putDown(pawn, typePawn);
-			putDown(rook, typeRook);
-			putDown(knight, typeKnight);
-			putDown(bishop, typeBishop);
-			putDown(queen, typeQueen);
-			putDown(king, typeKing);
+			putDown(pawn);
+			putDown(rook);
+			putDown(knight);
+			putDown(bishop);
+			putDown(queen);
+			putDown(king);
 			hasPiece = false;
 		} else {
 			// checking for the selected piece
@@ -146,7 +145,7 @@ public class Chess extends PApplet {
 		}
 	}
 
-	void putDown(Piece[] piece, Piece type) {
+	void putDown(Piece[] piece) {
 
 		if (mouseButton == RIGHT) {
 			for (int i = 0; i < piece.length; i++) {
@@ -158,7 +157,7 @@ public class Chess extends PApplet {
 			for (int i = 0; i < piece.length; i++) {
 				if (piece[i].moving) {
 					piece[i].moving = false;
-					if (checkMove(mouseX / LENGTH, mouseY / LENGTH, type)) {
+					if (checkMove(mouseX / LENGTH, mouseY / LENGTH, piece[i])) {
 						piece[i].setIndex(mouseX / LENGTH, mouseY / LENGTH);
 					}
 				}
@@ -167,10 +166,18 @@ public class Chess extends PApplet {
 	}
 
 	boolean checkMove(int i, int j, Piece piece) {
-		if (piece == typePawn) {
-			return ((Pawn) piece).checkValidMove(i, j);
-		}else if(piece == typeRook) {
-			return ((Rook) piece).checkValidMove(i, j);
+		if (piece.getClass() == typePawn.getClass()) {
+			return ((Pawn) piece).checkForValidMove(i, j);
+		} else if (piece.getClass() == typeRook.getClass()) {
+			return ((Rook) piece).checkForValidMove(i, j);
+		} else if (piece.getClass() == typeKnight.getClass()) {
+			return ((Knight) piece).checkForValidMove(i, j);
+		} else if (piece.getClass() == typeBishop.getClass()) {
+			return ((Bishop) piece).checkForValidMove(i, j);
+		} else if (piece.getClass() == typeQueen.getClass()) {
+			return ((Queen) piece).checkForValidMove(i, j);
+		} else if (piece.getClass() == typeKing.getClass()) {
+			return ((King) piece).checkForValidMove(i, j);
 		}
 		return false;
 
