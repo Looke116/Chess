@@ -123,7 +123,7 @@ public class Chess extends PApplet {
 		}
 
 		// drawing the pieces
-		pawn.forEach(piece -> piece.draw()); // TODO something's wrong here
+		pawn.forEach(piece -> piece.draw()); // TODO something's wrong here //TODO now it's working idk how/why
 		rook.forEach(piece -> piece.draw());
 		knight.forEach(piece -> piece.draw());
 		bishop.forEach(piece -> piece.draw());
@@ -180,27 +180,35 @@ public class Chess extends PApplet {
 							piece.get(i).setIndex(mouseX / LENGTH, mouseY / LENGTH);
 							cell[current[0]][current[1]].setPiece(false);
 							cell[mouseX / LENGTH][mouseY / LENGTH].setPiece(true);
+							syncronizeList();
 						}
 					} else {
-						boolean isWhite = true;
+						Boolean isWhite = null;
 						for (int j = 0; j < pieces.size(); j++) {
 							for (int k = 0; k < pieces.get(j).size(); k++) {
-								if (piece.get(j).checkMouseLocation(mouseX, mouseY)) {
-									isWhite = piece.get(j).white;
+								if (pieces.get(j).get(k).checkMouseLocation(mouseX, mouseY)) {
+									isWhite = pieces.get(j).get(k).white;
+									break;
 								}
+							}
+							if (isWhite != null) {
+								break;
 							}
 						}
 
 						if (checkMove(mouseX / LENGTH, mouseY / LENGTH, piece.get(i), isWhite)) {
-							for (int j = 0; j < piece.size(); j++) {
-								if (piece.get(j).checkMouseLocation(mouseX, mouseY)) {
-									piece.get(j).taken = true;
-
+							for (int j = 0; j < pieces.size(); j++) {
+								for (int k = 0; k < pieces.get(j).size(); k++) {
+									if (pieces.get(j).get(k).checkMouseLocation(mouseX, mouseY)) {
+										pieces.get(j).get(k).taken = true;
+									}
 								}
 							}
+							
 							piece.get(i).setIndex(mouseX / LENGTH, mouseY / LENGTH);
 							cell[current[0]][current[1]].setPiece(false);
 							cell[mouseX / LENGTH][mouseY / LENGTH].setPiece(true);
+							syncronizeList();
 						}
 					}
 				}
@@ -225,11 +233,20 @@ public class Chess extends PApplet {
 		return false;
 	}
 
-	boolean checkMove(int i, int j, Piece piece, boolean isWhite) {
+	boolean checkMove(int i, int j, Piece piece, Boolean isWhite) {
+		if (isWhite == null) {
+			throw new NullPointerException();
+		}
 		if (piece.getClass() == typePawn.getClass()) {
-			return ((Pawn) piece).checkAttack(i, j, isWhite);
+			if (((Pawn) piece).checkAttack(i, j, isWhite)) {
+				isWhite = null;
+				return true;
+			}
 		} else if (piece.getClass() == typeRook.getClass()) {
-			return ((Rook) piece).checkAttack(i, j, isWhite);
+			if (((Rook) piece).checkAttack(i, j, isWhite)) {
+				isWhite = null;
+				return true;
+			}
 		} else if (piece.getClass() == typeKnight.getClass()) {
 //			return ((Knight) piece).checkAttack(i, j, isWhite);
 //		} else if (piece.getClass() == typeBishop.getClass()) {
@@ -240,5 +257,15 @@ public class Chess extends PApplet {
 //			return ((King) piece).checkAttack(i, j, isWhite);
 		}
 		return false;
+	}
+
+	void syncronizeList() {
+		pieces.clear();
+		pieces.add(pawn);
+		pieces.add(rook);
+		pieces.add(knight);
+		pieces.add(bishop);
+		pieces.add(queen);
+		pieces.add(king);
 	}
 }

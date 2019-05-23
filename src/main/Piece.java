@@ -118,10 +118,10 @@ class Pawn extends Piece {
 		return false;
 	}
 
-	boolean checkAttack(int i, int j, boolean isWhite) {// TODO add check for the color of the attacked piece
+	boolean checkAttack(int i, int j, boolean isWhite) {
 
 		if (this.white) {
-			if(!isWhite) {
+			if (!isWhite) {
 				if ((this.i + 1 == i) || (this.i - 1 == i)) {
 					if (this.j - 1 == j) {
 						return true;
@@ -129,7 +129,7 @@ class Pawn extends Piece {
 				}
 			}
 		} else {
-			if(isWhite) {
+			if (isWhite) {
 				if ((this.i + 1 == i) || (this.i - 1 == i)) {
 					if (this.j + 1 == j) {
 						return true;
@@ -162,21 +162,21 @@ class Rook extends Piece {
 		}
 		return false;
 	}
-	
+
 	boolean checkAttack(int i, int j, boolean isWhite) {
-		if(this.white) {
-			if(!isWhite) {
+		if (this.white) {
+			if (!isWhite) {
 				if (this.i == i) {
 					return true;
 				} else if (this.j == j) {
 					return true;
 				}
-			}else {
-				if (this.i == i) {
-					return true;
-				} else if (this.j == j) {
-					return true;
-				}
+			} 
+		} else if (isWhite) {
+			if (this.i == i) {
+				return true;
+			} else if (this.j == j) {
+				return true;
 			}
 		}
 		return false;
