@@ -4,17 +4,17 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 public class Piece {
-	int i;
-	int j;
-	int x;
-	int y;
-	int length;
-	boolean white;
-	boolean moving;
-	boolean taken;
-	PApplet parent;
-	PImage blackImage;
-	PImage whiteImage;
+	public int i;
+	public int j;
+	public int x;
+	public int y;
+	public int length;
+	public boolean white;
+	public boolean moving;
+	public boolean taken;
+	public PApplet parent;
+	public PImage blackImage;
+	public PImage whiteImage;
 
 	public Piece(int i, int j, int length, boolean white, PApplet p) {
 		this.i = i;
@@ -32,14 +32,14 @@ public class Piece {
 		// this is here just so I can make an empty object that is needed for the typePiece variables
 	}
 
-	void setIndex(int i, int j) {
+	public void setIndex(int i, int j) {
 		this.i = i;
 		this.j = j;
 		x = i * length;
 		y = j * length;
 	}
 
-	boolean checkMouseLocation(int x, int y) {
+	public boolean checkMouseLocation(int x, int y) {
 		return (x > this.x && x < this.x + length && y > this.y && y < this.y + length);
 	}
 
@@ -75,7 +75,7 @@ public class Piece {
 
 class Pawn extends Piece {
 
-	boolean canMoveTwo = true;
+	private boolean canMoveTwo = true;
 
 	public Pawn(int i, int j, int length, boolean white, PApplet p) {
 		super(i, j, length, white, p);
@@ -87,7 +87,7 @@ class Pawn extends Piece {
 		// this is here just so I can make an empty object that is needed for the typePiece variables
 	}
 
-	boolean checkMove(int i, int j) {
+	public boolean checkMove(int i, int j) {
 
 		if (this.white) {
 			if (this.canMoveTwo) {
@@ -118,24 +118,14 @@ class Pawn extends Piece {
 		return false;
 	}
 
-	boolean checkAttack(int i, int j, boolean isWhite) {
+	public boolean checkAttack(int i, int j, boolean isWhite) {
 
 		if (this.white) {
 			if (!isWhite) {
-				if ((this.i + 1 == i) || (this.i - 1 == i)) {
-					if (this.j - 1 == j) {
-						return true;
-					}
-				}
+				return (checkMove(i, j));
 			}
-		} else {
-			if (isWhite) {
-				if ((this.i + 1 == i) || (this.i - 1 == i)) {
-					if (this.j + 1 == j) {
-						return true;
-					}
-				}
-			}
+		} else if (isWhite) {
+			return (checkMove(i, j));
 		}
 		return false;
 	}
@@ -153,7 +143,7 @@ class Rook extends Piece {
 		// this is here just so I can make an empty object that is needed for the typePiece variables
 	}
 
-	boolean checkMove(int i, int j) {
+	public boolean checkMove(int i, int j) {
 
 		if (this.i == i) {
 			return true;
@@ -163,21 +153,13 @@ class Rook extends Piece {
 		return false;
 	}
 
-	boolean checkAttack(int i, int j, boolean isWhite) {
+	public boolean checkAttack(int i, int j, boolean isWhite) {
 		if (this.white) {
 			if (!isWhite) {
-				if (this.i == i) {
-					return true;
-				} else if (this.j == j) {
-					return true;
-				}
-			} 
-		} else if (isWhite) {
-			if (this.i == i) {
-				return true;
-			} else if (this.j == j) {
-				return true;
+				return (checkMove(i, j));
 			}
+		} else if (isWhite) {
+			return (checkMove(i, j));
 		}
 		return false;
 	}
@@ -195,7 +177,7 @@ class Knight extends Piece {
 		// this is here just so I can make an empty object that is needed for the typePiece variables
 	}
 
-	boolean checkMove(int i, int j) {
+	public boolean checkMove(int i, int j) {
 		if ((this.i + 2 == i) || (this.i - 2 == i)) {
 			if ((this.j + 1 == j) || (this.j - 1 == j)) {
 				return true;
@@ -205,6 +187,17 @@ class Knight extends Piece {
 			if ((this.j + 2 == j) || (this.j - 2 == j)) {
 				return true;
 			}
+		}
+		return false;
+	}
+
+	public boolean checkAttack(int i, int j, Boolean isWhite) {
+		if (this.white) {
+			if (!isWhite) {
+				return (checkMove(i, j));
+			}
+		} else if (isWhite) {
+			return (checkMove(i, j));
 		}
 		return false;
 	}
@@ -222,9 +215,20 @@ class Bishop extends Piece {
 		// this is here just so I can make an empty object that is needed for the typePiece variables
 	}
 
-	boolean checkMove(int i, int j) {
+	public boolean checkMove(int i, int j) {
 		if (Math.abs(this.i - i) == Math.abs(this.j - j)) {
 			return true;
+		}
+		return false;
+	}
+
+	public boolean checkAttack(int i, int j, Boolean isWhite) {
+		if (this.white) {
+			if (!isWhite) {
+				return (checkMove(i, j));
+			}
+		} else if (isWhite) {
+			return (checkMove(i, j));
 		}
 		return false;
 	}
@@ -242,13 +246,24 @@ class Queen extends Piece {
 		// this is here just so I can make an empty object that is needed for the typePiece variables
 	}
 
-	boolean checkMove(int i, int j) {
+	public boolean checkMove(int i, int j) {
 		if (this.i == i) {
 			return true;
 		} else if (this.j == j) {
 			return true;
 		} else if (Math.abs(this.i - i) == Math.abs(this.j - j)) {
 			return true;
+		}
+		return false;
+	}
+
+	public boolean checkAttack(int i, int j, Boolean isWhite) {
+		if (this.white) {
+			if (!isWhite) {
+				return (checkMove(i, j));
+			}
+		} else if (isWhite) {
+			return (checkMove(i, j));
 		}
 		return false;
 	}
@@ -281,6 +296,17 @@ class King extends Piece {
 			if ((this.i + 1 == i) || (this.i - 1 == i)) {
 				return true;
 			}
+		}
+		return false;
+	}
+
+	public boolean checkAttack(int i, int j, Boolean isWhite) {
+		if (this.white) {
+			if (!isWhite) {
+				return (checkMove(i, j));
+			}
+		} else if (isWhite) {
+			return (checkMove(i, j));
 		}
 		return false;
 	}

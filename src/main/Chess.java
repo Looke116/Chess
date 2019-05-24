@@ -204,7 +204,7 @@ public class Chess extends PApplet {
 									}
 								}
 							}
-							
+
 							piece.get(i).setIndex(mouseX / LENGTH, mouseY / LENGTH);
 							cell[current[0]][current[1]].setPiece(false);
 							cell[mouseX / LENGTH][mouseY / LENGTH].setPiece(true);
@@ -248,13 +248,13 @@ public class Chess extends PApplet {
 				return true;
 			}
 		} else if (piece.getClass() == typeKnight.getClass()) {
-//			return ((Knight) piece).checkAttack(i, j, isWhite);
-//		} else if (piece.getClass() == typeBishop.getClass()) {
-//			return ((Bishop) piece).checkAttack(i, j, isWhite);
-//		} else if (piece.getClass() == typeQueen.getClass()) {
-//			return ((Queen) piece).checkAttack(i, j, isWhite);
-//		} else if (piece.getClass() == typeKing.getClass()) {
-//			return ((King) piece).checkAttack(i, j, isWhite);
+			return ((Knight) piece).checkAttack(i, j, isWhite);
+		} else if (piece.getClass() == typeBishop.getClass()) {
+			return ((Bishop) piece).checkAttack(i, j, isWhite);
+		} else if (piece.getClass() == typeQueen.getClass()) {
+			return ((Queen) piece).checkAttack(i, j, isWhite);
+		} else if (piece.getClass() == typeKing.getClass()) {
+			return ((King) piece).checkAttack(i, j, isWhite);
 		}
 		return false;
 	}
