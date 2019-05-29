@@ -118,7 +118,7 @@ class Pawn extends Piece {
 		return false;
 	}
 
-	public boolean checkAttack(int i, int j, boolean isWhite) {
+	public boolean checkAttack(int i, int j, Boolean isWhite) {
 
 		if (this.white) {
 			if (!isWhite) {
@@ -153,7 +153,7 @@ class Rook extends Piece {
 		return false;
 	}
 
-	public boolean checkAttack(int i, int j, boolean isWhite) {
+	public boolean checkAttack(int i, int j, Boolean isWhite) {
 		if (this.white) {
 			if (!isWhite) {
 				return (checkMove(i, j));
@@ -270,6 +270,17 @@ class Queen extends Piece {
 }
 
 class King extends Piece {
+
+	/*
+	 * TODO
+	 * castling
+	 * Your king has not moved (or the rook)!
+	 * Your king is NOT in check!
+	 * Your king does not pass through check!
+	 * No pieces between the king and rook!
+	 */
+
+//	boolean castling = true;
 
 	public King(int i, int j, int length, boolean white, PApplet p) {
 		super(i, j, length, white, p);

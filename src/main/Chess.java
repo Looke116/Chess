@@ -39,7 +39,11 @@ public class Chess extends PApplet {
 
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
-				cell[i][j] = new Cell(i, j, false, this);
+				if ((i + j + 1) % 2 == 0) {
+					cell[i][j] = new Cell(i, j, LENGTH, false, true, this);
+				} else {
+					cell[i][j] = new Cell(i, j, LENGTH, false, false, this);
+				}
 			}
 		}
 
@@ -108,17 +112,10 @@ public class Chess extends PApplet {
 	}
 
 	public void draw() {
-		// creating the board
+		// drawing the board
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
-				noStroke();
-				if ((i + j + 1) % 2 == 0) {
-					fill(200);
-					rect(LENGTH * i, LENGTH * j, LENGTH, LENGTH);
-				} else {
-					fill(100);
-					rect(LENGTH * i, LENGTH * j, LENGTH, LENGTH);
-				}
+				cell[i][j].draw();
 			}
 		}
 
@@ -159,6 +156,7 @@ public class Chess extends PApplet {
 				piece.get(i).moving = true;
 				current[0] = mouseX / LENGTH;
 				current[1] = mouseY / LENGTH;
+				generateMoves(piece.get(i));
 			}
 		}
 	}
@@ -248,15 +246,31 @@ public class Chess extends PApplet {
 				return true;
 			}
 		} else if (piece.getClass() == typeKnight.getClass()) {
-			return ((Knight) piece).checkAttack(i, j, isWhite);
+			if (((Knight) piece).checkAttack(i, j, isWhite)){
+				isWhite = null;
+				return true;
+			}
 		} else if (piece.getClass() == typeBishop.getClass()) {
-			return ((Bishop) piece).checkAttack(i, j, isWhite);
+			if (((Bishop) piece).checkAttack(i, j, isWhite)) {
+				isWhite = null;
+				return true;
+			}
 		} else if (piece.getClass() == typeQueen.getClass()) {
-			return ((Queen) piece).checkAttack(i, j, isWhite);
+			if (((Queen) piece).checkAttack(i, j, isWhite)) {
+				isWhite = null;
+				return true;
+			}
 		} else if (piece.getClass() == typeKing.getClass()) {
-			return ((King) piece).checkAttack(i, j, isWhite);
+			if (((King) piece).checkAttack(i, j, isWhite)) {
+				isWhite = null;
+				return true;
+			}
 		}
 		return false;
+	}
+
+	void generateMoves(Piece piece) {
+		// TODO
 	}
 
 	void syncronizeList() {
