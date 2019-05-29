@@ -3,6 +3,12 @@ package main;
 import processing.core.PApplet;
 
 public class Cell {
+	public static final int WHITE = 200;
+	public static final int BLACK = 100;
+	public static final int[] SELECTED_WHITE = { 179, 200, 179 };
+	public static final int[] SELECTED_BLACK = { 90, 100, 90 };
+	public static final int[] ATTACKED_WHITE = { 200, 179, 179 };
+	public static final int[] ATTACKED_BLACK = { 100, 90, 90 };
 	int i;
 	int j;
 	int length;
@@ -11,12 +17,6 @@ public class Cell {
 	boolean selected;
 	boolean attacked;
 	PApplet parent;
-	public static final int WHITE = 200;
-	public static final int BLACK = 100;
-	public static final int[] SELECTED_WHITE = { 179, 200, 179 };
-	public static final int[] SELECTED_BLACK = { 90, 100, 90 };
-	public static final int[] ATTACKED_WHITE = { 200, 179, 179 };
-	public static final int[] ATTACKED_BLACK = { 100, 90, 90 };
 
 	Cell(int i, int j, int length, boolean occupied, boolean white, PApplet p) {
 		this.i = i;
