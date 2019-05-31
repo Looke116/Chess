@@ -11,13 +11,17 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="D:/Java Library/Guava/guava-18.0.jar" sourcepath="D:/Java Library/Guava/guava-18.0-sources.jar">
+	<classpathentry kind="lib" path="lib/core.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/D:/Java%20Library/Guava/guava-18.0-javadoc.jar!/"/>
+			<attribute name="javadoc_location" value="https://processing.github.io/processing-javadocs/core/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="D:/Java Library/Guava/guava-18.0-javadoc.jar"/>
-	<classpathentry kind="lib" path="D:/Java Library/Guava/guava-18.0-sources.jar"/>
-	<classpathentry kind="lib" path="D:/Java Library/processing-3.5.3/core/library/core.jar"/>
+	<classpathentry kind="lib" path="lib/guava-18.0-javadoc.jar"/>
+	<classpathentry kind="lib" path="lib/guava-18.0-sources.jar"/>
+	<classpathentry kind="lib" path="lib/guava-18.0.jar" sourcepath="lib/guava-18.0-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/Chess/lib/guava-18.0-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
