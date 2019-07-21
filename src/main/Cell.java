@@ -27,15 +27,15 @@ public class Cell {
 		parent = p;
 	}
 
-	void setPiece(boolean piece) {
-		this.occupied = piece;
+	void setOccupied(boolean occupied) {// set this cell as "having a piece on it"
+		this.occupied = occupied;
 	}
 
-	void setSelected(boolean selected) {
+	void setSelected(boolean selected) {// if a piece is able to move on this cell
 		this.selected = selected;
 	}
 
-	void setAttacked(boolean attacked) {
+	void setAttacked(boolean attacked) {// if the piece on this cell is attacked by another one
 		this.attacked = attacked;
 	}
 
@@ -43,10 +43,10 @@ public class Cell {
 		parent.noStroke();
 		if (white) {
 			if (selected) {
-				parent.fill(SELECTED_WHITE[0],SELECTED_WHITE[1],SELECTED_WHITE[2]);
+				parent.fill(SELECTED_WHITE[0], SELECTED_WHITE[1], SELECTED_WHITE[2]);
 				parent.rect(length * i, length * j, length, length);
 			} else if (attacked) {
-				parent.fill(ATTACKED_WHITE[0],ATTACKED_WHITE[1],ATTACKED_WHITE[2]);
+				parent.fill(ATTACKED_WHITE[0], ATTACKED_WHITE[1], ATTACKED_WHITE[2]);
 				parent.rect(length * i, length * j, length, length);
 			} else {
 				parent.fill(WHITE);
@@ -54,10 +54,10 @@ public class Cell {
 			}
 		} else {
 			if (selected) {
-				parent.fill(SELECTED_BLACK[0],SELECTED_BLACK[1],SELECTED_BLACK[2]);
+				parent.fill(SELECTED_BLACK[0], SELECTED_BLACK[1], SELECTED_BLACK[2]);
 				parent.rect(length * i, length * j, length, length);
 			} else if (attacked) {
-				parent.fill(ATTACKED_BLACK[0],ATTACKED_BLACK[1],ATTACKED_BLACK[2]);
+				parent.fill(ATTACKED_BLACK[0], ATTACKED_BLACK[1], ATTACKED_BLACK[2]);
 				parent.rect(length * i, length * j, length, length);
 			} else {
 				parent.fill(BLACK);

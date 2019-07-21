@@ -10,7 +10,7 @@ public class Piece {
 	public int y;
 	public int length;
 	public boolean white;
-	public boolean moving;
+	public boolean picked;
 	public boolean taken;
 	public PApplet parent;
 	public PImage blackImage;
@@ -23,7 +23,7 @@ public class Piece {
 		x = i * length;
 		y = j * length;
 		this.white = white;
-		moving = false;
+		picked = false;
 		taken = false;
 		parent = p;
 	}
@@ -45,7 +45,7 @@ public class Piece {
 
 	public void draw() {
 		if (!this.taken) {
-			if (moving) {
+			if (picked) {
 				if (white) {
 					parent.image(whiteImage, parent.mouseX - length / 2, parent.mouseY - length / 2, length, length);
 				} else {
@@ -66,7 +66,7 @@ public class Piece {
 			this.x = -1;
 			this.y = -1;
 			this.length = -1;
-			this.moving = false;
+			this.picked = false;
 			this.blackImage = null;
 			this.whiteImage = null;
 		}
@@ -75,7 +75,7 @@ public class Piece {
 
 class Pawn extends Piece {
 
-	private boolean canMoveTwo = true;
+	public boolean canMoveTwo = true;
 
 	public Pawn(int i, int j, int length, boolean white, PApplet p) {
 		super(i, j, length, white, p);
@@ -122,11 +122,22 @@ class Pawn extends Piece {
 
 		if (this.white) {
 			if (!isWhite) {
-				return (checkMove(i, j));
+				if ((this.i + 1 == i) || (this.i - 1 == i)) {
+					if (this.j - 1 == j) {
+						return true;
+					}
+				}
 			}
-		} else if (isWhite) {
-			return (checkMove(i, j));
+		} else {
+			if (isWhite) {
+				if ((this.i + 1 == i) || (this.i - 1 == i)) {
+					if (this.j + 1 == j) {
+						return true;
+					}
+				}
+			}
 		}
+
 		return false;
 	}
 }
@@ -280,7 +291,7 @@ class King extends Piece {
 	 * No pieces between the king and rook!
 	 */
 
-//	boolean castling = true;
+//	boolean canCastle = true;
 
 	public King(int i, int j, int length, boolean white, PApplet p) {
 		super(i, j, length, white, p);
